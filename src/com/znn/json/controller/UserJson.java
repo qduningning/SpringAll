@@ -5,6 +5,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -27,9 +31,15 @@ public class UserJson {
 	ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
 	UserDao dao = (UserDao) applicationContext.getBean("userDao");
 	
+	static final Logger logger = 	LogManager.getLogger(UserJson.class);
+//	static Log logger = LogFactory.getLog(UserJson.class);
+//	private static Logger logger = Logger.getLogger(UserJson.class);
 	@RequestMapping("/hi")
 	public @ResponseBody String helloWorld(Model model) {
 //		model.addAttribute("msg", "Hello HelloWorld");
+		System.out.println("====");
+		logger.info("===>hello");
+		logger.error("deed,lop");
 		return "hello world";
 //		return "redirect:hello.jsp";
 	}

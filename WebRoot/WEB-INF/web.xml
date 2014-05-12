@@ -2,14 +2,16 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	id="WebApp_ID" version="2.5">
+	id="WebApp_ID" version="2.5"
+	>
 	<display-name>Spring</display-name>
+	
 
 	<!-- 容器启动时自动装配 配置信息 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-          /WEB-INF/ContextLoaderListener.xml
+          /WEB-INF/applicationContext.xml,/WEB-INF/applicationContext-aop.xml
       </param-value>
 	</context-param>
 	<listener>
@@ -38,7 +40,14 @@
   	</welcome-file>
 	</welcome-file-list>
 	<!-- 默认 首页END -->
-
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/page/error/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/page/error/404.jsp</location>
+	</error-page>
 	<!-- 声明一个Servlet 并进行配置 -->
 	<servlet>
 		<servlet-name>rest</servlet-name>
@@ -69,5 +78,28 @@
 		<url-pattern>/json/*</url-pattern>
 	</servlet-mapping>
 	<!-- 声明一个Servlet END -->
+
+	<!-- log4j -->
+	<!-- <context-param> <param-name>webAppRootKey</param-name> <param-value>spapp.root</param-value> 
+		</context-param> -->
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>/WEB-INF/config/log4j.properties</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>spdemo.root</param-value>
+	</context-param>
+
 	
+	<context-param>
+		<param-name>log4jRefreshInterval</param-name>
+		<param-value>60000</param-value>
+	</context-param>
+	<!-- end Log4j -->
+
 </web-app>
